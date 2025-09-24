@@ -23,7 +23,7 @@ GitHubOTA::GitHubOTA(const String &display_version, const String &controller_ver
     _progress_callback = progress_callback;
 
     Updater.rebootOnUpdate(false);
-    _wifi_client.setCACertBundle(x509_crt_imported_bundle_bin_start);
+    _wifi_client.setCACertBundle(x509_crt_imported_bundle_bin_start, x509_crt_imported_bundle_bin_length);
 
     Updater.onStart(update_started);
     Updater.onEnd(update_finished);

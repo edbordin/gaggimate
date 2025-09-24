@@ -371,11 +371,13 @@ void LilyGo_RGBPanel::initBUS() {
                     },
             },
         .data_width = 16, // RGB565 in parallel mode, thus 16bit in width
-        .psram_trans_align = 64,
+        .num_fbs = 1,
+        .dma_burst_size = 64,
         .hsync_gpio_num = BOARD_TFT_HSYNC,
         .vsync_gpio_num = BOARD_TFT_VSYNC,
         .de_gpio_num = BOARD_TFT_DE,
         .pclk_gpio_num = BOARD_TFT_PCLK,
+        .disp_gpio_num = GPIO_NUM_NC,
         .data_gpio_nums =
             {
                 // BOARD_TFT_DATA0,
@@ -399,9 +401,6 @@ void LilyGo_RGBPanel::initBUS() {
                 BOARD_TFT_DATA4,
                 BOARD_TFT_DATA5,
             },
-        .disp_gpio_num = GPIO_NUM_NC,
-        .on_frame_trans_done = NULL,
-        .user_ctx = NULL,
         .flags =
             {
                 .fb_in_psram = 1, // allocate frame buffer in PSRAM
@@ -420,6 +419,7 @@ void LilyGo_RGBPanel::initBUS() {
     }
 
     ESP_ERROR_CHECK(esp_lcd_new_rgb_panel(&panel_config, &_panelDrv));
+    ESP_ERROR_CHECK(esp_lcd_panel_reset(_panelDrv));
     ESP_ERROR_CHECK(esp_lcd_panel_init(_panelDrv));
 }
 

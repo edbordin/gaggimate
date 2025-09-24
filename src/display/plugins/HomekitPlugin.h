@@ -1,7 +1,11 @@
 #ifndef HOMEKITPLUGIN_H
 #define HOMEKITPLUGIN_H
 #include "../core/Plugin.h"
+
+// Workaround for namespace clash with gaggimate Controller class
+#define Controller HomespanController
 #include "HomeSpan.h"
+#undef Controller
 
 #define HOMESPAN_PORT 8080
 #define DEVICE_NAME "GaggiMate"

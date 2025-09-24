@@ -17,6 +17,8 @@ using phase_callback_t = std::function<void(uint8_t phase)>;
 using progress_callback_t = std::function<void(uint8_t phase, int progress)>;
 
 extern const uint8_t x509_crt_imported_bundle_bin_start[] asm("_binary_x509_crt_bundle_start");
+extern const uint8_t x509_crt_imported_bundle_bin_end[] asm("_binary_x509_crt_bundle_end");
+const size_t x509_crt_imported_bundle_bin_length = x509_crt_imported_bundle_bin_end - x509_crt_imported_bundle_bin_start;
 
 class GitHubOTA {
   public:
