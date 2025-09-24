@@ -227,7 +227,7 @@ void NimBLEClientController::onResult(const NimBLEAdvertisedDevice *advertisedDe
         if (advertisedDevice->isAdvertisingService(NimBLEUUID(SERVICE_UUID))) {
             ESP_LOGI(LOG_TAG, "Found target BLE device. Connecting...");
             NimBLEDevice::getScan()->stop(); // Stop scanning once we find the correct device
-            serverDevice = const_cast<NimBLEAdvertisedDevice*>(advertisedDevice);
+            serverDevice = const_cast<NimBLEAdvertisedDevice *>(advertisedDevice);
             readyForConnection = true;
         }
     }
@@ -235,6 +235,28 @@ void NimBLEClientController::onResult(const NimBLEAdvertisedDevice *advertisedDe
 
 void NimBLEClientController::onDisconnect(NimBLEClient *pServer, int reason) {
     ESP_LOGI(LOG_TAG, "Disconnected from server (reason: %d), trying to reconnect...", reason);
+
+    tempControlChar = nullptr;
+    pumpControlChar = nullptr;
+    valveControlChar = nullptr;
+    altControlChar = nullptr;
+    tempReadChar = nullptr;
+    pingChar = nullptr;
+    pidControlChar = nullptr;
+    pumpModelCoeffsChar = nullptr;
+    errorChar = nullptr;
+    autotuneChar = nullptr;
+    autotuneResultChar = nullptr;
+    brewBtnChar = nullptr;
+    steamBtnChar = nullptr;
+    infoChar = nullptr;
+    sensorChar = nullptr;
+    outputControlChar = nullptr;
+    pressureScaleChar = nullptr;
+    volumetricMeasurementChar = nullptr;
+    volumetricTareChar = nullptr;
+    ledControlChar = nullptr;
+    tofMeasurementChar = nullptr;
     scan();
 }
 
