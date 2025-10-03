@@ -13,13 +13,13 @@ void PressureSensor::setup() {
     Wire1.begin(_sda_pin, _scl_pin);
     ESP_LOGV(LOG_TAG, "Initializing pressure sensor on SDA: %d, SCL: %d", _sda_pin, _scl_pin);
     delay(100);
-    ads = new ADS1115(0x48, &Wire1);
+    ads = new ADS1X15Impl(ADS1115_ADDRESS, &Wire1);
     if (!ads->begin()) {
         ESP_LOGE(LOG_TAG, "Failed to initialize ADS1115");
     }
-    ads->setGain(0);
-    ads->setDataRate(4);
-    ads->setMode(0);
+    ads->setGain(ADS1X15_GAIN_6144MV);
+    ads->setDataRate(DATA_RATE_128_SPS);
+    ads->setMode(ADS1X15_MODE_CONTINUOUS);
     ads->readADC(0);
     xTaskCreate(loopTask, "Heater::loop", configMINIMAL_STACK_SIZE * 4, this, 1, &taskHandle);
 }

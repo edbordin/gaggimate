@@ -139,6 +139,9 @@ void GaggiMateController::loop() {
 void GaggiMateController::registerBoardConfig(ControllerConfig config) { configs.push_back(config); }
 
 void GaggiMateController::detectBoard() {
+    #ifdef USE_CUSTOM_CONTROLLER_BOARD
+    _config = GM_CUSTOM_BOARD;
+    #else
     pinMode(DETECT_EN_PIN, OUTPUT);
     pinMode(DETECT_VALUE_PIN, INPUT_PULLDOWN);
     digitalWrite(DETECT_EN_PIN, HIGH);
@@ -156,6 +159,7 @@ void GaggiMateController::detectBoard() {
     ESP_LOGW(LOG_TAG, "No compatible board detected.");
     delay(5000);
     ESP.restart();
+    #endif
 }
 
 void GaggiMateController::detectAddon() {

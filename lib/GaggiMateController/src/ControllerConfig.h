@@ -184,4 +184,39 @@ const ControllerConfig GM_PRO_LEGO = {.name = "GaggiMate Pro Lego Build",
                                           .tof = false,
                                       }};
 
+const ControllerConfig GM_CUSTOM_BOARD = {.name = "Modded Gaggiuino PCB V3",
+                                          .autodetectValue = 0,
+                                          .heaterPin = 6,       // D3
+                                          .pumpPin = 3,         // A2
+                                          .pumpSensePin = 2,    // A1
+                                          .pumpOn = 1,          // logic level
+                                          .valvePin = 48,       // D13
+                                          .valveOn = 1,         // logic level
+                                          .altPin = 12,         // NC but pin A5 is unused so safe to assign
+                                          .altOn = 1,           // logic level
+                                          .pressureScl = 10,    // D7
+                                          .pressureSda = 17,    // D8
+                                          .maxSckPin = 13,      // A6
+                                          .maxCsPin = 14,       // A7
+                                          .maxMisoPin = 8,      // D5
+                                          .brewButtonPin = 12,  // A5 (connected with a bodge wire)
+                                          .steamButtonPin = 46, // B0
+                                          .scaleSclPin = 0,     // B1
+                                          .scaleSdaPin = 21,    // D10
+                                          .scaleSda1Pin = 18,   // D9
+                                          .sunriseSclPin = 1,   // NC but A0 is unused
+                                          .sunriseSdaPin = 38,  // NC but D11 is unused
+                                          .ext1Pin = 99,        // NC
+                                          .ext2Pin = 99,        // NC
+                                          .ext3Pin = 99,        // NC
+                                          .ext4Pin = 99,        // NC
+                                          .ext5Pin = 99,        // NC
+                                          .capabilites = {
+                                              .dimming = true,
+                                              .pressure = true,
+                                              .ssrPump = false,
+                                              .ledControls = false,
+                                              .tof = false,
+                                          }};
+
 #endif // CONTROLLERCONFIG_H

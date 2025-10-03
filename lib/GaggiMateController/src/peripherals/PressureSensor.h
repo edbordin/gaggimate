@@ -5,7 +5,21 @@
 #include <Arduino.h>
 
 constexpr int PRESSURE_READ_INTERVAL_MS = 30;
-constexpr float ADC_STEP = 6.144f / 32767.0f;
+
+#ifdef USE_ADS_1015
+// ADS1015 is 12-bit and has different data rates but otherwise compatible with the ADS1115 code here
+// TODO: potential auto-detect method using the sample rate here:
+// https://github.com/pimoroni/ads1015-python/blob/64bc296b506ca7144414cd0ba6d0b6adeabdb007/ads1015/__init__.py#L243
+constexpr float ADC_MAX_VALUE = 2047.0f;
+constexpr uint8_t DATA_RATE_128_SPS = ADS1X15_DATARATE_0;
+#define ADS1X15Impl ADS1015
+#else
+constexpr float ADC_MAX_VALUE = 32767.0f;
+constexpr uint8_t DATA_RATE_128_SPS = ADS1X15_DATARATE_4;
+#define ADS1X15Impl ADS1115
+#endif
+
+constexpr float ADC_STEP = ADS1x15_GAIN_6144MV_FSRANGE_V / ADC_MAX_VALUE;
 
 using pressure_callback_t = std::function<void(float)>;
 
@@ -30,7 +44,7 @@ class PressureSensor {
     float _pressure_scale;
     float _pressure_step;
     int16_t _adc_floor;
-    ADS1115 *ads = nullptr;
+    ADS1X15Impl *ads = nullptr;
     pressure_callback_t _callback;
     xTaskHandle taskHandle;
 
