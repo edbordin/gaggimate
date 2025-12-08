@@ -23,6 +23,7 @@ constexpr int UI_COMMAND_QUEUE_SIZE = 16;
 
 int16_t calculate_angle(int set_temp, int range, int offset);
 
+<<<<<<< HEAD
 // UI Command types for thread-safe communication
 enum class UICommandType {
     CHANGE_SCREEN,
@@ -63,10 +64,13 @@ struct UICommand {
         } setString;
     } data;
 };
+=======
+enum class BrewScreenState { Brew, Settings };
+>>>>>>> upstream/master
 
 class DefaultUI {
   public:
-    DefaultUI(Controller *controller, PluginManager *pluginManager);
+    DefaultUI(Controller *controller, Driver *driver, PluginManager *pluginManager);
 
     // Default work methods
     void init();
@@ -85,6 +89,7 @@ class DefaultUI {
     // Legacy interface (deprecated, use enqueue methods)
     void changeScreen(lv_obj_t **screen, void (*target_init)(void));
 
+    void changeBrewScreenMode(BrewScreenState state);
     void onProfileSwitch();
     void onNextProfile();
     void onPreviousProfile();
@@ -139,6 +144,7 @@ class DefaultUI {
     // Screen state
     String selectedProfileId = "";
     Profile selectedProfile{};
+<<<<<<< HEAD
     bool updateAvailable = false;
     bool updateActive = false;
     bool apActive = false;
@@ -148,6 +154,23 @@ class DefaultUI {
     bool volumetricMode = false;
     bool grindActive = false;
     bool active = false;
+=======
+    int updateAvailable = false;
+    int updateActive = false;
+    int apActive = false;
+    int error = false;
+    int autotuning = false;
+    int volumetricAvailable = false;
+    int bluetoothScales = false;
+    int volumetricMode = false;
+    int grindActive = false;
+    int active = false;
+    int smartGrindActive = false;
+    int grindAvailable = false;
+
+    // Seasonal flags
+    int christmasMode = false;
+>>>>>>> upstream/master
 
     bool rerender = false;
     unsigned long lastRender = 0;
@@ -155,14 +178,20 @@ class DefaultUI {
     int mode = MODE_STANDBY;
     int currentTemp = 0;
     int targetTemp = 0;
-    int targetDuration = 0;
-    int targetVolume = 0;
+    float targetDuration = 0;
+    float targetVolume = 0;
     int grindDuration = 0;
     float grindVolume = 0.0f;
     bool pressureAvailable = false;
     float pressure = 0.0f;
     int pressureScaling = DEFAULT_PRESSURE_SCALING;
+<<<<<<< HEAD
     bool heatingFlash = false;
+=======
+    int heatingFlash = 0;
+    double bluetoothWeight = 0.0;
+    BrewScreenState brewScreenState = BrewScreenState::Brew;
+>>>>>>> upstream/master
 
     int currentProfileIdx;
     String currentProfileId = "";
